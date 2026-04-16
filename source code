@@ -1,0 +1,69 @@
+# Library Book Tracker System
+
+library = {}
+
+def add_book():
+    book_id = input("Enter Book ID: ")
+    name = input("Enter Book Name: ")
+    
+    if book_id in library:
+        print("Book ID already exists!")
+    else:
+        library[book_id] = {"name": name, "available": True}
+        print("Book added successfully!")
+
+def view_books():
+    if not library:
+        print("No books available.")
+    else:
+        print("\nLibrary Books:")
+        for book_id, details in library.items():
+            status = "Available" if details["available"] else "Issued"
+            print(f"ID: {book_id}, Name: {details['name']}, Status: {status}")
+
+def issue_book():
+    book_id = input("Enter Book ID to issue: ")
+    if book_id in library:
+        if library[book_id]["available"]:
+            library[book_id]["available"] = False
+            print("Book issued successfully!")
+        else:
+            print("Book is already issued.")
+    else:
+        print("Book ID not found.")
+
+def return_book():
+    book_id = input("Enter Book ID to return: ")
+    if book_id in library:
+        if not library[book_id]["available"]:
+            library[book_id]["available"] = True
+            print("Book returned successfully!")
+        else:
+            print("Book was not issued.")
+    else:
+        print("Book ID not found.")
+
+# Main Program
+while True:
+    print("\n====== Library Menu ======")
+    print("1. Add Book")
+    print("2. View Books")
+    print("3. Issue Book")
+    print("4. Return Book")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == '1':
+        add_book()
+    elif choice == '2':
+        view_books()
+    elif choice == '3':
+        issue_book()
+    elif choice == '4':
+        return_book()
+    elif choice == '5':
+        print("Thank you for using the system!")
+        break
+    else:
+        print("Invalid choice! Please try again.")
